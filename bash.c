@@ -70,30 +70,39 @@ int main(int argc, char *argv[]) {
 		string_arr[words][characters] = stream_char;
 //		printf("char: %c\n", string_arr[words][characters]);
 		characters++;
-
+		
+		/* loads the first command-line of the commands.txt FILE into the char-array */
 		if(stream_char == '\n') {
+			
+			/* if the first element of the char array is "#" or "/n" or "\0" the array is erased (filled with "\0") */
 			if(string_arr[0][0] == '#' || string_arr[0][0] == '\n' || string_arr[0][0] == '\0') {
 				printf("leere zeile oder kommentar (\\n or # or \\0)\n");
 				put_char_arr_to_0(string_arr);
 				continue;
 			}
+			
 			printf("\ninhalt nullzeiger: %s", string_arr[0]);
 			printf("\ninhalt nullzeiger: %s", string_arr[1]);
 			printf("\ninhalt nullzeiger: %s", string_arr[2]);
 			printf("\ninhalt nullzeiger: %s\n", string_arr[3]);
-				
+			
+			/* adds NULL to the last pointer (after the last "word" in the char-array */	
 			string_arr[++words] = NULL;
+			
+			/* execute the commands of the char-array  */
 //			int exe = execvp(string_arr[0], string_arr);	
 //			printf("execvp: %d\n", exe);
 			printf("words: %d\t characters: %d\n", words+1, characters+1);	
 
 			print_arr(string_arr);
 			
-			put_char_arr_to_0(string_arr);
-			
+			/* after the last command line (from commands.txt) the char-array is set to "\0" and counter of characters and words to 0 */
+			put_char_arr_to_0(string_arr);			
 			characters = 0;
 			words = 0;
 		} 
+		
+		/* a "space" indicates a new "word" within the command line (loaded from commands.txt) */
 		if (stream_char == 32) { // 32 = space
 			printf("words: %d\t characters: %d\n", words+1, characters+1);	
 			words++;			
@@ -101,6 +110,7 @@ int main(int argc, char *argv[]) {
 		}
 	}
 	
+	/* frees the char_array */
 	free2DimArr(string_arr);
 	if (fclose(fileptr) != 0){
 			printf("ERROR: fclose\n");
