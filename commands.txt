@@ -1,0 +1,8 @@
+# This is a comment followed by an empty line
+
+echo hello word
+/usr/bin/whoami
+/bin/echo hello world
+/bin/false
+/usr/bin/id &
+/bin/date
